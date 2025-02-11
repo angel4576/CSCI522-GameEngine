@@ -19,6 +19,7 @@
 #include "deque"
 
 #include "Particle.h"
+#include "WindField.h"
 
 namespace PE {
 namespace Components {
@@ -57,8 +58,10 @@ namespace Components {
 		virtual void addDefaultComponents();
 		virtual void addComponent(Handle hComponent, int* pAllowedEvents = NULL);
 
+
 		// Methods
 		void InitializeParticlePool();
+		void CreateWindField();
 		void CreateParticle(PE::GameContext& context, PE::MemoryArena arena);
 		void emitParticles();
 		void renderParticles();
@@ -73,10 +76,13 @@ namespace Components {
 		int m_numParticle;
 		float m_spawnRate;
 		float m_interval; // interval between each spawn
+		bool m_isPullOut;
 
 		// Particle pool to manage particles
 		std::vector<Particle> m_particlePool;
 		int m_numValidParticle = 0;
+
+		WindField* m_windField;
 
 
 	private:

@@ -4,6 +4,8 @@
 
 #include "PrimeEngine/Scene/DrawList.h"
 
+#include "ParticleSystem/WindField.h"
+
 #if APIABSTRACTION_IOS
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
@@ -412,6 +414,15 @@ int ClientGame::runGameFrame()
             pcam->m_base.turnUp(pRealEvent->m_relativeRotate.getY());
             pcam->m_base.turnAboutAxis(-pRealEvent->m_relativeRotate.getX(), RootSceneNode::Instance()->m_worldTransform.getV());
         }
+		else if (Event_ADD_WIND::GetClassId() == pGeneralEvt->getClassId())
+		{
+			WindField::enhanceWindStrength();
+
+		}
+		else if (Event_REDUCE_WIND::GetClassId() == pGeneralEvt->getClassId())
+		{
+			WindField::reduceWindStrength();
+		}
         else if (Event_CLOSED_WINDOW::GetClassId() == pGeneralEvt->getClassId())
         {
             m_runGame = false;
